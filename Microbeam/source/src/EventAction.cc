@@ -38,8 +38,8 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 EventAction::EventAction(RunAction* runAction)
-: G4UserEventAction(),
-  fRunAction(runAction)
+:G4UserEventAction(),
+    fRunAction(runAction)
 {} 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

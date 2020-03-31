@@ -48,11 +48,10 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 SteppingAction::SteppingAction(EventAction* eventAction)
-: G4UserSteppingAction(),
-  fEventAction(eventAction),
-  fScoringVolume(0),
-  fLogicColl(0),
-  fTrack(0)
+:G4UserSteppingAction(),
+    fEventAction(eventAction),
+    fScoringVolume(0),
+    fTrack(0)
 {}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -72,11 +71,25 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
     
     
 //    get volume of the current step
-  G4LogicalVolume* volume 
+    
+  G4LogicalVolume* logicVolume
     = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
-      
-    fLogicColl = detectorConstruction->GetLogicColl();
-    if(volume==fScoringVolume) {
+    
+    std::string volumeName =
+        step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetName();
+    std::string str = "cible" ;
+    std::size_t found = volumeName.find(str);
+    if(found!=std::string::npos) {
+        int cibleID;
+        std::string nombre = volumeName.substr(str.size());
+        cibleID = stoi(nombre);
+        fEventAction->GetRunAction()->SetCible(cibleID);
+        fEventAction->GetRunAction()->SetBool(false);
+    }
+    if(fEventAction->GetRunAction()->GetBool()){
+        fEventAction->GetRunAction()->SetCible(0);
+    }
+    if(logicVolume==fScoringVolume) {
         auto* runAction_h =  fEventAction->GetRunAction();
         fTrack = step->GetTrack();
         G4double ID =  fTrack->GetTrackID();

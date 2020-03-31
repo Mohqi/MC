@@ -50,7 +50,6 @@ class EventAction : public G4UserEventAction
     
   private:
     RunAction* fRunAction;
-    G4double fKineticEnergy;
 };
 
 
