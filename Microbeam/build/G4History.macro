@@ -60,3 +60,7 @@
 /vis/verbose warnings
 /vis/viewer/set/picking false
 /vis/viewer/refresh
+/vis/viewer/set/picking false
+/vis/viewer/refresh
+/run/beamOn 1000
+/vis/scene/notifyHandlers scene-0
