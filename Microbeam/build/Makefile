@@ -65,10 +65,10 @@ RM = /Users/arichert/lib/cmake-3.17.0-rc1/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/arichert/Desktop/Projet/MC/Microbeam/source
+CMAKE_SOURCE_DIR = /Users/arichert/Documents/MC/Microbeam/source
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/arichert/Desktop/Projet/MC/Microbeam/build
+CMAKE_BINARY_DIR = /Users/arichert/Documents/MC/Microbeam/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -143,9 +143,9 @@ install/local/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/arichert/Desktop/Projet/MC/Microbeam/build/CMakeFiles /Users/arichert/Desktop/Projet/MC/Microbeam/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/arichert/Documents/MC/Microbeam/build/CMakeFiles /Users/arichert/Documents/MC/Microbeam/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/arichert/Desktop/Projet/MC/Microbeam/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/arichert/Documents/MC/Microbeam/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

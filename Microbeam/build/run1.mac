@@ -1,4 +1,4 @@
-#Macro file for example B1
+# Macro file for example B1
 # 
 # Can be run in batch, without graphic
 # or interactively: Idle> /control/execute run1.mac
@@ -19,5 +19,5 @@
 /gun/particle proton
 /gun/energy 25 MeV
 #
-/run/beamOn 10000000
+/run/beamOn 100
 
