@@ -76,7 +76,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   //
   // World
   //
-    // G4double rayon = 3*mm;
+    G4double cote = (5/2.)*mm;
     G4double world_sizeXY = 5*cm;
     G4double world_sizeZ  = 3*cm;
     G4double void_density = 0.000001*g/m3;
@@ -136,11 +136,10 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                   checkOverlaps);
     
     
-    // Embout FLASH
+    // Embout FLASH carre
     
     //load data
-    
-    /*
+
     std::ifstream data("../source/data/data.txt");
     double a=0;
     double b=0;
@@ -165,17 +164,14 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
      G4Material* env_mat = nist->FindOrBuildMaterial("G4_Void");
      G4ThreeVector env_pos = G4ThreeVector(0,0,pos_env_z);
      
-     G4double env_r_min = 0. ;
-     G4double env_r_max = rayon ;
-     G4double env_z = 3*mm;
+     G4double box_xy = cote ;
+     G4double box_z = 3*mm;
      
-     G4Tubs* env=
-         new G4Tubs("env",
-                   env_r_min,
-                   env_r_max,
-                   env_z,
-                    0.,
-                    2*M_PI);
+     G4Box* env=
+         new G4Box("env",
+                   box_xy,
+                   box_xy,
+                   box_z);
      
      G4LogicalVolume* logicEnv=
          new G4LogicalVolume(env,
@@ -183,56 +179,51 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                              "env");
      
     new G4PVPlacement(0,
-                   env_pos,
-                   logicEnv,
-                   "env",
-                   logicWorld,
-                   false,
-                   0,
-                   checkOverlaps);
+                      env_pos,
+                      logicEnv,
+                      "env",
+                      logicWorld,
+                      false,
+                      0,
+                      checkOverlaps);
     //
     // cible
     //
     
     double tot=0;
-    std::vector<double> aire(20,0);
-    std::vector<double> r(21,0);
-    for (int i=0; i<20;i++)
+    std::vector<double> aire(nb_epai,0);
+    std::vector<double> xy(nb_epai+1,0);
+    for (int i=0; i<20;i++) {
         tot+=coef[i];
-    aire[0]=(rayon*rayon*M_PI)/tot;
-    r[20]=0;
+    }
+    aire[0]=(cote*cote)/tot;
+    xy[20]=0;
 
-    G4double cible_r_min;
-    G4double cible_r_max;
+    G4double cible_xy;
     G4double cible_z;
     G4double pos_x=0;
     G4double pos_y=0;
     G4double pos_z;
-    std::vector<G4Tubs*> cible(20);
+    std::vector<G4Box*> cible(20);
     std::vector<G4LogicalVolume*> logicCible(20);
     std::string cible_string= "cible";
     G4Material* cible_mat = nist->FindOrBuildMaterial("G4_Al");
     G4ThreeVector cible_pos;
-    
     for (int i=19; i>0 ; i--) {
         aire[i]=aire[0]*coef[i];
-        r[i]=sqrt((aire[i]/M_PI)+r[i+1]*r[i+1]);
+        xy[i]=sqrt(aire[i]+xy[i+1]*xy[i+1]);
         std::string i_string = std::to_string(i);
         std::string name = cible_string+i_string;
-        cible_r_max = r[i];
-        cible_r_min = r[i+1];
-        cible_z = (epaisseur[i]/2.)*mm;
-        pos_z = -env_z+cible_z;
+        cible_xy = xy[i];
+        cible_z = (epaisseur[i]-epaisseur[i-1])/2.;
+        pos_z = (-box_z/2.+epaisseur[i]-cible_z);
         cible_pos=G4ThreeVector(pos_x,pos_y,pos_z);
-        G4cout << r[i] << G4endl;
         
         cible[i]=
-             new G4Tubs(name,
-                        cible_r_min,
-                        cible_r_max,
-                        cible_z,
-                        0.,
-                        2*M_PI);
+             new G4Box(name,
+                       cible_xy,
+                       cible_xy,
+                       cible_z);
          
          logicCible[i] =
              new G4LogicalVolume(cible[i],
@@ -248,8 +239,6 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                           0,
                           checkOverlaps);
     }
-     */
-    
     fScoringVolume = logicWaterbox;
   //
   //always return the physical World

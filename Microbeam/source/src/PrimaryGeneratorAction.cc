@@ -72,36 +72,11 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-    double rand = G4RandFlat::shoot(0.,1.);
-    /*double rand1 = CLHEP::RandFlat::shoot(-1.,1.);
+    double rand1 = CLHEP::RandFlat::shoot(-1.,1.);
     double rand2 = CLHEP::RandFlat::shoot(-1.,1.);
-    G4double rayon= 65*um;*/
-    G4double x0,y0;
-    if (rand<(0.09)) {
-        x0 = 0+G4RandGauss::shoot(0.,50)*um;
-        y0 = -5+G4RandGauss::shoot(0.,50)*um;
-    }
-    else if (rand<(0.22)) { //2cm vers le haut
-        x0 = 0+G4RandGauss::shoot(0.,65)*um;
-        y0 = -3+G4RandGauss::shoot(0.,65)*um;
-    }
-    else if (rand<(0.37)){
-        x0 = 0+G4RandGauss::shoot(0.,80)*um;
-        y0 = -1+G4RandGauss::shoot(0.,80)*um;
-    }
-    else if (rand<(0.552)){
-        x0 = 0+G4RandGauss::shoot(0.,95)*um;
-        y0 = 1+G4RandGauss::shoot(0.,95)*um;
-    }
-    else if(rand<(0.762)) {
-        x0 = 0+G4RandGauss::shoot(0.,110)*um;
-        y0 = 3+G4RandGauss::shoot(0.,110)*um;
-    }
-    else {
-        x0 = 0+G4RandGauss::shoot(0.,125)*um;
-        y0 = 5+G4RandGauss::shoot(0.,125)*um;
-    }
-    
+    G4double cote= 5*mm;
+    G4double x0=rand1*cote;
+    G4double y0=rand2*cote;;
     G4double z0 = -1*cm;
     fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
     G4double RandoEnergy = 25;
