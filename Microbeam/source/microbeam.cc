@@ -73,14 +73,17 @@ int main(int argc,char** argv)
   // Detector construction
   runManager->SetUserInitialization(new DetectorConstruction());
 
-  // Physics list
+    // Physics list
     PhysicsBIC*            phys = new PhysicsBIC();
     runManager->SetUserInitialization(phys);
 
     
-  // User action initialization
+    // User action initialization
   runManager->SetUserInitialization(new ActionInitialization());
-  
+    
+    //User Tracking Action
+  TrackingAction* trkAct = new TrackingAction(detector,runAct,evtAct);
+    runManager->SetUserAction(trkAct);
 
   // Initialize visualization
   //
