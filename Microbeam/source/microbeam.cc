@@ -82,9 +82,6 @@ int main(int argc,char** argv)
     // User action initialization
   runManager->SetUserInitialization(new ActionInitialization());
     
-    //User Tracking Action
-    TrackingAction* trkAct = new TrackingAction();
-    runManager->SetUserAction(trkAct);
 
   // Initialize visualization
   //

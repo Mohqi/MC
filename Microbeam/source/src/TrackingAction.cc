@@ -44,7 +44,9 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-TrackingAction::TrackingAction()
+TrackingAction::TrackingAction(RunAction* runAction)
+    :G4UserTrackingAction(),
+    fRunAction(runAction)
 { }
  
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -56,7 +58,9 @@ void TrackingAction::PreUserTrackingAction(const G4Track* track )
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void TrackingAction::PostUserTrackingAction(const G4Track* )
-{ }
+{
+    fRunAction->SetBool(true); 
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 

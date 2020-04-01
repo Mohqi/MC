@@ -32,6 +32,7 @@
 #include "DetectorConstruction.hh"
 #include "Analysis.hh"
 #include "RunAction.hh"
+#include "TrackingAction.hh"
 
 #include "Randomize.hh"
 
@@ -68,7 +69,6 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
       = static_cast<const DetectorConstruction*>
         (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
     fScoringVolume = detectorConstruction->GetScoringVolume();
-    
     
 //    get volume of the current step
     
