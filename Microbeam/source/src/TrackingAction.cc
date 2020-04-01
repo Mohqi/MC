@@ -37,7 +37,6 @@
 #include "DetectorConstruction.hh"
 #include "RunAction.hh"
 #include "EventAction.hh"
-#include "HistoManager.hh"
 
 #include "G4Track.hh"
 #include "G4Positron.hh"
@@ -45,9 +44,7 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-TrackingAction::TrackingAction(DetectorConstruction* det,RunAction* run,
-                               EventAction* evt)
-:fDetector(det), fRunAct(run), fEventAct(evt)
+TrackingAction::TrackingAction()
 { }
  
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
