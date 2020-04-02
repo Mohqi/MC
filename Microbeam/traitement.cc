@@ -22,7 +22,7 @@ TTree* tr= (TTree*)f->Get("tree");  //ouvre le fichier root;
     int facteur_z = 100;
     int facteur_y = 100;//facteur pour passer des mm de root à une autre unité
     int FOVz = 7*facteur_z; // nombre de pixel en z
-    int FOVy = 12*facteur_y;  // nombre de pixel en x
+    int FOVy = 2*facteur_y;  // nombre de pixel en x
     // Taille de l'image = 7mm en z x 1mm en x
     int nb_cible = 20;
     
@@ -52,7 +52,7 @@ TTree* tr= (TTree*)f->Get("tree");  //ouvre le fichier root;
         tr->GetEntry(i);
             pixel_y=round(y_root*facteur_y)+FOVy/2;
             pixel_z=round(z_root*facteur_z);
-            if (pixel_z<FOVz && pixel_z> 0 && pixel_y >0 && pixel_y<FOVy ) {
+            if (pixel_z<FOVz && pixel_z> 0 && pixel_y >0 && pixel_y<FOVy) {
                 FOV[pixel_z][pixel_y][cibleID]+=edep;
         }
     }
@@ -67,10 +67,23 @@ TTree* tr= (TTree*)f->Get("tree");  //ouvre le fichier root;
             for (int j = 0 ; j<FOVz ; j++) {
                 output <<  FOV[j][i][nom] << " "  ;
             }
-                output << std::endl;
+            output << std::endl;
     }
     output.close();
     }
+    fstream output("data/MatriceTot.txt",ios::out);
+    double proj_cible;
+    for (int i = 0 ; i<FOVy ; i++) {
+        for (int j = 0 ; j<FOVz ; j++) {
+            proj_cible=0;
+            for (int k =0 ; k<20; k++) {
+                proj_cible+=FOV[j][i][k];
+            }
+            output << proj_cible << " " ;
+        }
+        output << std::endl;
+    }
+    output.close();
     delete FOV;
 }
 
