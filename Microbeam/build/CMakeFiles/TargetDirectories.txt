@@ -1,8 +1,0 @@
-/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles/install/strip.dir
-/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles/install.dir
-/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles/list_install_components.dir
-/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles/rebuild_cache.dir
-/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles/microbeam.dir
-/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles/edit_cache.dir
-/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles/install/local.dir
-/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles/FLASH.dir

@@ -30,6 +30,7 @@
 #include "DetectorConstruction.hh"
 #include "ActionInitialization.hh"
 #include "PhysicsBIC.hh"
+#include "TrackingAction.hh"
 
 #ifdef G4MULTITHREADED
 #include "G4MTRunManager.hh"
@@ -73,14 +74,14 @@ int main(int argc,char** argv)
   // Detector construction
   runManager->SetUserInitialization(new DetectorConstruction());
 
-  // Physics list
+    // Physics list
     PhysicsBIC*            phys = new PhysicsBIC();
     runManager->SetUserInitialization(phys);
 
     
-  // User action initialization
+    // User action initialization
   runManager->SetUserInitialization(new ActionInitialization());
-  
+    
 
   // Initialize visualization
   //

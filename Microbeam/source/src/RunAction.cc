@@ -60,7 +60,9 @@ RunAction::RunAction()
     fDose{0.},
     fPartName{"unknown"},
     fTrackID{0},
-    fParentID{-1}
+    fParentID{-1},
+    fCible{0},
+    fBool(true)
 {
     fTree.Branch("Edep", &fEdep, "Edep /D");
     fTree.Branch("Z", &fDepth, "Depth /D");
@@ -73,6 +75,7 @@ RunAction::RunAction()
     fTree.Branch("ptclName" , &fPartName);
     fTree.Branch("trackID"  , &fTrackID  ,"trackID  /I") ;
     fTree.Branch("parentID"  , &fParentID  ,"parentID  /I") ;
+    fTree.Branch("CibleID", &fCible, "Cible /I");
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -54,7 +54,6 @@ class SteppingAction : public G4UserSteppingAction
    
     EventAction*  fEventAction;
     G4LogicalVolume* fScoringVolume;
-    G4LogicalVolume* fLogicColl;
     G4Track* fTrack;
 
 };
