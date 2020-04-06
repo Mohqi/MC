@@ -1,7 +1,4 @@
 build/
 .DS_Store
 ../.DS_Store
-../data/
-data/
-data
-../../.DS_Store	
+
