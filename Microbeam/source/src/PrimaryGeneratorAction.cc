@@ -72,14 +72,12 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-    double rand1 = CLHEP::RandFlat::shoot(-1.,1.);
-    double rand2 = CLHEP::RandFlat::shoot(-1.,1.);
-    G4double cote= (150/2.)*um;
-    G4double x0=rand1*cote;
-    G4double y0=rand2*cote;
+    G4double cote= 4;
+    G4double x0=G4RandFlat::shoot(-1.,1.)*cote;
+    G4double y0=G4RandFlat::shoot(-1.,1.)*cote;
     G4double z0 = -1*cm;
     fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
-    G4double RandoEnergy = 25;
+    G4double RandoEnergy = G4RandGauss::shoot(25,0.1)*MeV;
     fParticleGun->SetParticleEnergy(RandoEnergy*MeV);
        
 
