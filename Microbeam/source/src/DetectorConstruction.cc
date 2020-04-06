@@ -77,7 +77,8 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   //
   // World
   //
-    G4double cote = 150*um;
+    G4double d=150*um;
+    G4double cote =(d/2.);
     G4double world_sizeXY = 5*cm;
     G4double world_sizeZ  = 3*cm;
     G4double void_density = 0.000001*g/m3;
@@ -230,7 +231,8 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     std::string cible_string= "cible";
     G4Material* cible_mat = nist->FindOrBuildMaterial("G4_Al");
     G4ThreeVector cible_pos;
-    for (int i=19; i>0 ; i--) {
+    for (int i=19; i>=0 ; i--) {
+        if(i!=0) {
         aire[i]=aire[0]*coef[i];
         xy[i]=sqrt(aire[i]+xy[i+1]*xy[i+1]);
         std::string i_string = std::to_string(i);
@@ -259,6 +261,37 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                           false,
                           0,
                           checkOverlaps);
+        }
+        else if(i==0) {
+            xy[i]=sqrt(aire[i]+xy[i+1]*xy[i+1]);
+            std::string i_string = std::to_string(i);
+            std::string name = cible_string+i_string;
+            cible_xy = xy[i];
+            cible_z = (epaisseur[i])/2.;
+            pos_z = (-box_z/2.+epaisseur[i]-cible_z);
+            cible_pos=G4ThreeVector(pos_x,pos_y,pos_z);
+            
+            cible[i]=
+                 new G4Box(name,
+                           cible_xy,
+                           cible_xy,
+                           cible_z);
+             
+             logicCible[i] =
+                 new G4LogicalVolume(cible[i],
+                                     cible_mat,
+                                     name);
+             
+            new G4PVPlacement(0,
+                              cible_pos,
+                              logicCible[i],
+                              name,
+                              logicEnv,
+                              false,
+                              0,
+                              checkOverlaps);
+            
+        }
     }
     for (double pos_cible_x=-zone_xy+cote; pos_cible_x <zone_xy ; pos_cible_x+=2*cote){
         for (double pos_cible_y=-zone_xy+cote; pos_cible_y <zone_xy ; pos_cible_y+=2*cote){
