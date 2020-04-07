@@ -59,38 +59,37 @@ class RunAction : public G4UserRunAction
     
   public:
     
-    void SetEdep (double aEdep) { fEdep=aEdep; }
-    void SetDepth (double aDepth) { fDepth=aDepth; }
     void SetX (double aX ) {fX = aX ; }
     void SetY (double aY ) {fY = aY ; }
-    void SetKineticEnergy(double aKinEnergy) {fKinEnergy = aKinEnergy;}
-    void SetDelta (double aDelta) {fDelta = aDelta; }
-    void SetDose (double aDose) {fDose =  aDose;}
+    void SetvX (double aV) {fvX = aV;}
+    void SetvY (double aV) {fvY = aV;}
+    void SetvZ (double aV) {fvZ = aV;}
     void SetParticleName    ( G4String aPartName ) { fPartName  = aPartName.data() ;  }
     void SetTrackID    ( int    aID  ) { fTrackID = aID    ;  }
     void SetParentID    ( int    aID  ) { fParentID = aID     ;  }
     void SetSpectrum    ( double   aSpectrum  ) { fSpectrum = aSpectrum     ;  }
-    void SetCible (int aCible) {fCible = aCible;    }
-    TTree& GetTree(){ return fTree; }
+    TTree& GetTree1(){ return fTree1; }
+    TTree& GetTree2() {return fTree2; }
     int& GetEvents(){ return fEvents; }
     bool GetBool() {return fBool;}
     void SetBool(bool aBool) {fBool=aBool; }
+    double GetKineticEnergy() {return fKinEnergy;}
+    void SetKineticEnergy(double aKin) {fKinEnergy=aKin;}
     
 private:
-    TTree fTree;
+    TTree fTree1;
+    TTree fTree2;
     int fEvents;
-    double fEdep;
-    double fDepth;
     double fX;
     double fY;
+    double fvX;
+    double fvY;
+    double fvZ;
     double fSpectrum;
-    double fDelta;
     double fKinEnergy;
-    double fDose; 
     std::string fPartName;
     int fTrackID;
     int fParentID;
-    int fCible;
     bool fBool;
 };
 

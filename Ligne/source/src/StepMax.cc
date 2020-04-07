@@ -75,7 +75,7 @@ G4double StepMax::PostStepGetPhysicalInteractionLength(
 
   if((fMaxChargedStep > 0.) &&
      (aTrack.GetVolume() != NULL) &&
-     (aTrack.GetVolume()->GetName() != "fWorld_phy"))
+     (aTrack.GetVolume()->GetName() != "World"))
      ProposedStep = fMaxChargedStep;
 
   return ProposedStep;

@@ -59,7 +59,3 @@
 /vis/viewer/set/autoRefresh true
 /vis/viewer/refresh
 /vis/verbose warnings
-/run/beamOn 100
-/vis/scene/notifyHandlers scene-0
-/vis/viewer/set/picking false
-/vis/viewer/refresh

@@ -72,38 +72,22 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
     
 //    get volume of the current step
     
-  G4LogicalVolume* logicVolume
+    G4LogicalVolume* logicVolume
     = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
     
-    std::string volumeName =
-        step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetName();
-    std::string str = "cible" ;
-    std::size_t found = volumeName.find(str);
-    if(found!=std::string::npos) {
-        int cibleID;
-        std::string nombre = volumeName.substr(str.size());
-        cibleID = stoi(nombre);
-        fEventAction->GetRunAction()->SetCible(cibleID);
-        fEventAction->GetRunAction()->SetBool(false);
-    }
-    if(fEventAction->GetRunAction()->GetBool()){
-        fEventAction->GetRunAction()->SetCible(0);
-    }
-    if(logicVolume==fScoringVolume) {
+    G4String logicVolumeName = logicVolume->GetName();
+
+    if(logicVolumeName=="detectDebut") {
         auto* runAction_h =  fEventAction->GetRunAction();
         fTrack = step->GetTrack();
         G4double ID =  fTrack->GetTrackID();
         G4StepPoint* prePoint = step->GetPreStepPoint();
-        G4StepPoint* postPoint = step->GetPostStepPoint();
-        G4double Edep = prePoint->GetKineticEnergy() - postPoint->GetKineticEnergy();
-        G4double TotalEdep = step->GetTotalEnergyDeposit();
         G4double kinEnergy = prePoint->GetKineticEnergy();
-        G4double deltaLength = (postPoint->GetPosition().getZ() - prePoint->GetPosition().getZ());
-        G4double depth = (prePoint->GetPosition().getZ() + CLHEP::RandFlat::shoot(deltaLength)) ;
-        G4double x_pre = prePoint->GetPosition().getX();
-        G4double x_post = postPoint->GetPosition().getX();
-        G4double x = CLHEP::RandFlat::shoot(x_pre,x_post);
+        G4double x = prePoint->GetPosition().getX();
         G4double y = prePoint->GetPosition().getY();
+        G4double vx = prePoint->GetMomentumDirection().getX();
+        G4double vy = prePoint->GetMomentumDirection().getY();
+        G4double vz = prePoint->GetMomentumDirection().getZ();
         const G4VProcess* CurrentProcess=prePoint->GetProcessDefinedStep();
         if (CurrentProcess != 0) {
             const G4String & StepProcessName = CurrentProcess->GetProcessName();
@@ -115,17 +99,50 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
         }
         else
             runAction_h->SetSpectrum(0);
-        runAction_h->SetDepth(depth); //ici cest pour la profondeur
         runAction_h->SetParticleName(fTrack->GetDefinition()->GetParticleName());
         runAction_h->SetKineticEnergy(kinEnergy);
-        runAction_h->SetEdep(TotalEdep);
-        runAction_h->SetDelta(deltaLength);
-        runAction_h->SetDose(Edep);
         runAction_h->SetTrackID(ID);
         runAction_h->SetParentID(fTrack->GetParentID() );
         runAction_h->SetX(x);
         runAction_h->SetY(y);
-        runAction_h->GetTree().Fill();
+        runAction_h->SetvX(vx);
+        runAction_h->SetvY(vy);
+        runAction_h->SetvZ(vz);
+        runAction_h->GetTree1().Fill();
+    }
+
+    if(logicVolume==fScoringVolume) {
+        auto* runAction_h =  fEventAction->GetRunAction();
+        fTrack = step->GetTrack();
+        G4double ID =  fTrack->GetTrackID();
+        G4StepPoint* prePoint = step->GetPreStepPoint();
+        G4double kinEnergy = prePoint->GetKineticEnergy();
+        G4double x = prePoint->GetPosition().getX();
+        G4double y = prePoint->GetPosition().getY();
+        G4double vx = prePoint->GetMomentumDirection().getX();
+        G4double vy = prePoint->GetMomentumDirection().getY();
+        G4double vz = prePoint->GetMomentumDirection().getZ();
+        const G4VProcess* CurrentProcess=prePoint->GetProcessDefinedStep();
+        if (CurrentProcess != 0) {
+            const G4String & StepProcessName = CurrentProcess->GetProcessName();
+            if(StepProcessName== "Transportation") {
+                // processing hit when entering the volume
+                G4double spectrumEnergy = step->GetTrack()->GetKineticEnergy();
+                runAction_h->SetSpectrum(spectrumEnergy);
+            }
+        }
+        else
+            runAction_h->SetSpectrum(0);
+        runAction_h->SetParticleName(fTrack->GetDefinition()->GetParticleName());
+        runAction_h->SetKineticEnergy(kinEnergy);
+        runAction_h->SetTrackID(ID);
+        runAction_h->SetParentID(fTrack->GetParentID() );
+        runAction_h->SetX(x);
+        runAction_h->SetY(y);
+        runAction_h->SetvX(vx);
+        runAction_h->SetvY(vy);
+        runAction_h->SetvZ(vz);
+        runAction_h->GetTree2().Fill();
     }
 }
 

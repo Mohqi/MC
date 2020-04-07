@@ -48,34 +48,45 @@
 
 RunAction::RunAction()
 : G4UserRunAction(),
-    fTree{"tree", "tree"},
+    fTree1{"tree1", "tree1"},
+    fTree2{"tree2","tree2"},
     fEvents{-1},
-    fEdep{-1.},
     fKinEnergy{0.},
-    fDepth{0.},
-    fDelta{0.},
     fX{0.},
     fY{0.},
+    fvX{0.},
+    fvY{0.},
+    fvZ{0.},
     fSpectrum{0.},
-    fDose{0.},
     fPartName{"unknown"},
     fTrackID{0},
     fParentID{-1},
-    fCible{0},
     fBool(true)
 {
-    fTree.Branch("Edep", &fEdep, "Edep /D");
-    fTree.Branch("Z", &fDepth, "Depth /D");
-    fTree.Branch("KinEnergy", &fKinEnergy, "KinEnergy /D");
-    fTree.Branch("DeltaZ", &fDelta ,"DeltaZ /D");
-    fTree.Branch("Dose", &fDose, "Dose /D");
-    fTree.Branch("X", &fX, "X /D");
-    fTree.Branch("Y", &fY, "Y /D");
-    fTree.Branch("spectrumEnergy", &fSpectrum, "Spectrum /D");
-    fTree.Branch("ptclName" , &fPartName);
-    fTree.Branch("trackID"  , &fTrackID  ,"trackID  /I") ;
-    fTree.Branch("parentID"  , &fParentID  ,"parentID  /I") ;
-    fTree.Branch("CibleID", &fCible, "Cible /I");
+    // Allocution des branches Tree1
+    fTree1.Branch("KinEnergy", &fKinEnergy, "KinEnergy /D");
+    fTree1.Branch("X", &fX, "X /D");
+    fTree1.Branch("Y", &fY, "Y /D");
+    fTree1.Branch("vX", &fvX, "vX /D");
+    fTree1.Branch("vY", &fvY, "vY /D");
+    fTree1.Branch("vZ", &fvZ, "vZ /D");
+    fTree1.Branch("spectrumEnergy", &fSpectrum, "Spectrum /D");
+    fTree1.Branch("ptclName" , &fPartName);
+    fTree1.Branch("trackID"  , &fTrackID  ,"trackID  /I") ;
+    fTree1.Branch("parentID"  , &fParentID  ,"parentID  /I") ;
+    
+    // Allocution des branches Tree2
+    
+    fTree2.Branch("KinEnergy", &fKinEnergy, "KinEnergy /D");
+    fTree2.Branch("X", &fX, "X /D");
+    fTree2.Branch("Y", &fY, "Y /D");
+    fTree2.Branch("vX", &fvX, "vX /D");
+    fTree2.Branch("vY", &fvY, "vY /D");
+    fTree2.Branch("vZ", &fvZ, "vZ /D");
+    fTree2.Branch("spectrumEnergy", &fSpectrum, "Spectrum /D");
+    fTree2.Branch("ptclName" , &fPartName);
+    fTree2.Branch("trackID"  , &fTrackID  ,"trackID  /I") ;
+    fTree2.Branch("parentID"  , &fParentID  ,"parentID  /I") ;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -146,7 +157,8 @@ void RunAction::EndOfRunAction(const G4Run* run)
      << G4endl;
     
     TFile outputFile{"Output.root", "recreate"};
-    fTree.Write() ;
+    fTree1.Write();
+    fTree2.Write();
     outputFile.Close() ;
 
     delete G4AnalysisManager::Instance();  

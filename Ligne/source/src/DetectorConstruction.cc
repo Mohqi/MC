@@ -77,8 +77,8 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   //
   // World
   //
-    G4double world_sizeXY = 20*cm;
-    G4double world_sizeZ  = 500*cm;
+    G4double world_sizeXY = 1*m;
+    G4double world_sizeZ  = 10*m;
     G4double void_density = 0.000001*g/m3;
     G4double a_void = 1*g/mole;
     G4Material* G4_Void=
@@ -114,7 +114,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
         
     G4double diff1_x = 5*cm;
     G4double diff1_y = 5*cm;
-    G4double diff1_z = 100*um;
+    G4double diff1_z = 50*um;
     G4Box* diff1 =
         new G4Box("Diff1",                                //its name
                   1*diff1_x, 1*diff1_y, 1 *diff1_z);     //its size
@@ -144,7 +144,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
           
       G4double diff2_x = 10*cm;
       G4double diff2_y = 10*cm;
-      G4double diff2_z = 50*um;
+      G4double diff2_z = 25*um;
       G4Box* diff2 =
           new G4Box("Diff2",                                //its name
                     1*diff2_x, 1*diff2_y, 1*diff2_z);     //its size
@@ -367,37 +367,36 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                   0,
                   checkOverlaps);
     
-//
-// Volume de détection air dès le début
-//
-    
-      /* G4double position_detec_debut = -(2500 - 40)*mm;
-       G4Material* detec_debut_mat = nist->FindOrBuildMaterial("G4_Al");
-       G4ThreeVector detec_debut_pos = G4ThreeVector(0,0,position_detec_debut);
-       
-       G4double detec_debut_x = 10*cm ;
-       G4double detec_debut_y = 10*cm ;
-       G4double detec_debut_z = 0.5*cm;
-       
-       G4Box* detec_debut=
-           new G4Box("detect_debut",
-                     detec_debut_x,
-                     detec_debut_y,
-                     detec_debut_z);
-       
-       G4LogicalVolume* logicDetecDebut =
-           new G4LogicalVolume(detec_debut,
-                               detec_debut_mat,
-                               "detect_debut");
-       
-      new G4PVPlacement(0,
-                     detec_debut_pos,
-                     logicDetecDebut,
-                     "detect_debut",
-                     logicWorld,
-                     false,
-                     0,
-                     checkOverlaps);*/
+    //
+    //    Volume de détection après le premier collimateur
+    //
+        G4double position_detec_debut = -(2500-735)*mm;
+        G4Material* detec_debut_mat = nist->FindOrBuildMaterial("G4_WATER");
+        G4ThreeVector detec_debut_pos = G4ThreeVector(0,0,position_detec_debut);
+        
+        G4double detec_debut_x = 10*cm ;
+        G4double detec_debut_y = 10*cm ;
+        G4double detec_debut_z = 1*um;
+        
+        G4Box* detec_debut=
+            new G4Box("detectDebut",
+                      detec_debut_x,
+                      detec_debut_y,
+                      detec_debut_z);
+        
+        G4LogicalVolume* logicDetecDebut =
+            new G4LogicalVolume(detec_debut,
+                                detec_debut_mat,
+                                "detectDebut");
+        
+       new G4PVPlacement(0,
+                      detec_debut_pos,
+                      logicDetecDebut,
+                      "detectDebut",
+                      logicWorld,
+                      false,
+                      0,
+                      checkOverlaps);
     
  fScoringVolume = logicDetec;
     

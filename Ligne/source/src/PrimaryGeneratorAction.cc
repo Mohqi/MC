@@ -57,8 +57,6 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
   G4ParticleDefinition* particle
     = particleTable->FindParticle(particleName="proton");
   fParticleGun->SetParticleDefinition(particle);
-  fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
- 
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -72,12 +70,23 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-    G4double cote= 4;
-    G4double x0=G4RandFlat::shoot(-1.,1.)*cote;
-    G4double y0=G4RandFlat::shoot(-1.,1.)*cote;
-    G4double z0 = -1*cm;
+    G4double coll_r=5/2.*mm;
+    G4double sigma=3*mm;
+    G4double mean=0;
+    G4double x0;
+    G4double y0;
+    do {
+        x0=G4RandGauss::shoot(mean,sigma);
+        y0=G4RandGauss::shoot(mean,sigma);
+    } while(sqrt(x0*x0+y0*y0)>=coll_r);
+        
+    G4double z0 = -(2500-723)*mm;
+    G4double v0x=x0*0.001+G4RandGauss::shoot(0,x0*0.001)*mm;
+    G4double v0y=y0*0.001+G4RandGauss::shoot(0,y0*0.001)*mm;
+    G4double v0z=1.;
     fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
-    G4double RandoEnergy = G4RandGauss::shoot(25,0.1)*MeV;
+    fParticleGun->SetParticleMomentumDirection(G4ThreeVector(v0x,v0y,v0z));
+    G4double RandoEnergy = G4RandGauss::shoot(24.5,0.1)*MeV;
     fParticleGun->SetParticleEnergy(RandoEnergy*MeV);
        
 
