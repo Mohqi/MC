@@ -77,7 +77,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   //
   // World
   //
-    G4double d=150*um;
+    G4double d=5*mm;
     G4double cote =(d/2.);
     G4double world_sizeXY = 5*cm;
     G4double world_sizeZ  = 3*cm;
