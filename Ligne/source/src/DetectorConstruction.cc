@@ -138,16 +138,21 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //Diffuseur 2 sorti d'air 50um al
     //
       
-      G4double position_diff2 = -(2500-4200)*mm;
+      G4double position_diff2 = -(2500-4189)*mm;
     G4Material* diff2_mat = nist->FindOrBuildMaterial("G4_Al");
     G4ThreeVector diff2_pos = G4ThreeVector(0, 0, position_diff2);
           
-      G4double diff2_x = 10*cm;
-      G4double diff2_y = 10*cm;
-      G4double diff2_z = 25*um;
-      G4Box* diff2 =
-          new G4Box("Diff2",                                //its name
-                    1*diff2_x, 1*diff2_y, 1*diff2_z);     //its size
+    G4double diff2_r_min = 0*cm;
+    G4double diff2_r_max = 15*mm;
+    G4double diff2_demiz = 25*um;
+      
+    G4Tubs* diff2 =
+          new G4Tubs("Diff2",                                //its name
+                     diff2_r_min,
+                     diff2_r_max,
+                     diff2_demiz,
+                     0,
+                     2*M_PI);     //its size
                         
     G4LogicalVolume* logicDiff2 =
       new G4LogicalVolume(diff2,         //its solid
@@ -162,6 +167,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                       false,                   //no boolean operation
                       0,                       //copy number
                       checkOverlaps);          //overlaps checking
+    
     
     //     Collimateur 1 5mm
     
@@ -336,42 +342,12 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                        0,                       //copy number
                        checkOverlaps);          //overlaps checking
 
-//
-//    Volume de détection water derriere le 2eme diffuseur
-//
-    G4double position_detec = -(2500 - 4225)*mm;
-    G4Material* detec_mat = nist->FindOrBuildMaterial("G4_WATER");
-    G4ThreeVector detec_pos = G4ThreeVector(0,0,position_detec);
-    
-    G4double detec_x = 10*cm ;
-    G4double detec_y = 10*cm ;
-    G4double detec_z = 1*cm;
-    
-    G4Box* detec=
-        new G4Box("detect",
-                  detec_x,
-                  detec_y,
-                  detec_z);
-    
-    G4LogicalVolume* logicDetec =
-        new G4LogicalVolume(detec,
-                            detec_mat,
-                            "detect");
-    
-   new G4PVPlacement(0,
-                  detec_pos,
-                  logicDetec,
-                  "detect",
-                  logicWorld,
-                  false,
-                  0,
-                  checkOverlaps);
     
     //
-    //    Volume de détection après le premier collimateur
+    //    Volume de détection après le premier collimateur z=774 premier profil
     //
-        G4double position_detec_debut = -(2500-735)*mm;
-        G4Material* detec_debut_mat = nist->FindOrBuildMaterial("G4_WATER");
+        G4double position_detec_debut = -(2500-774)*mm;
+        G4Material* detec_debut_mat = nist->FindOrBuildMaterial("G4_Void");
         G4ThreeVector detec_debut_pos = G4ThreeVector(0,0,position_detec_debut);
         
         G4double detec_debut_x = 10*cm ;
@@ -398,7 +374,38 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                       0,
                       checkOverlaps);
     
- fScoringVolume = logicDetec;
+    //
+    //    Volume de détection z=4220 deuxième profil
+    //
+        G4double position_detec_fin = -(2500-4220)*mm;
+        G4Material* detec_fin_mat = nist->FindOrBuildMaterial("G4_Void");
+        G4ThreeVector detec_fin_pos = G4ThreeVector(0,0,position_detec_fin);
+        
+        G4double detec_fin_x = 10*cm ;
+        G4double detec_fin_y = 10*cm ;
+        G4double detec_fin_z = 1*um;
+        
+        G4Box* detec_fin=
+            new G4Box("detectfin",
+                      detec_fin_x,
+                      detec_fin_y,
+                      detec_fin_z);
+        
+        G4LogicalVolume* logicDetecfin =
+            new G4LogicalVolume(detec_fin,
+                                detec_fin_mat,
+                                "detectfin");
+        
+       new G4PVPlacement(0,
+                      detec_fin_pos,
+                      logicDetecfin,
+                      "detectfin",
+                      logicWorld,
+                      false,
+                      0,
+                      checkOverlaps);
+    
+ fScoringVolume = logicDetecfin;
     
   //
   //always return the physical World

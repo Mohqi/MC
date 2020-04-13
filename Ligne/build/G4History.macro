@@ -59,3 +59,5 @@
 /vis/viewer/set/autoRefresh true
 /vis/viewer/refresh
 /vis/verbose warnings
+/vis/viewer/set/picking false
+/vis/viewer/refresh

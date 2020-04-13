@@ -77,7 +77,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   //
   // World
   //
-    G4double d=5*mm;
+    G4double d=500*um;
     G4double cote =(d/2.);
     G4double world_sizeXY = 5*cm;
     G4double world_sizeZ  = 3*cm;
@@ -213,9 +213,70 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //
     
     double tot=0;
+    for (int i=0; i<20;i++) {
+        tot+=coef[i];
+    }
     std::vector<double> aire(nb_epai,0);
     std::vector<double> xy(nb_epai+1,0);
-    for (int i=0; i<20;i++) {
+    aire[0]=(cote*cote)/tot;
+    xy[20]=0;
+    G4cout << aire[0] << G4endl;
+    G4double cible_xy;
+    G4double pos_x=0;
+    G4double pos_y=0;
+    G4double pos_z=epaisseur[0]/2.;
+    G4ThreeVector pyr_pos=G4ThreeVector(pos_x,pos_y,pos_z);
+    G4Material* Pyr_mat = nist->FindOrBuildMaterial("G4_Al");
+    
+    for (int i=19; i>=0 ; i--)  {
+        aire[i]=aire[0]*coef[i];
+        xy[i]=sqrt(aire[i]+xy[i+1]*xy[i+1]);
+        cible_xy= xy[i];
+        
+    }
+    G4double Pyr_z=epaisseur[nb_epai-1]/2.;
+    
+    G4Trd* Pyr =
+        new G4Trd("Pyr",xy[1],xy[19],xy[1],xy[19],Pyr_z);
+    
+    G4LogicalVolume* logicPyr =
+        new G4LogicalVolume(Pyr,
+                            Pyr_mat,
+                            "Pyr");
+    new G4PVPlacement(0,
+                     pyr_pos,
+                     logicPyr,
+                     "Pyr",
+                     logicEnv,
+                     false,
+                     0,
+                     checkOverlaps);
+    
+    G4double socle_z = pos_z-Pyr_z-epaisseur[0]/2.;
+    G4ThreeVector socle_pos = G4ThreeVector(0,0,socle_z);
+    
+    G4Box* Socle=
+        new G4Box("socle",
+                  xy[0],
+                  xy[0],
+                  epaisseur[0]/2.);
+    
+    G4LogicalVolume* logicSocle =
+        new G4LogicalVolume(Socle,
+                            Pyr_mat,
+                            "Socle");
+    
+    new G4PVPlacement(0,
+                      socle_pos,
+                      logicSocle,
+                      "Socle",
+                      logicEnv,
+                      false,
+                      0,
+                      checkOverlaps);
+    
+    
+   /* for (int i=0; i<20;i++) {
         tot+=coef[i];
     }
     aire[0]=(cote*cote)/tot;
@@ -292,7 +353,9 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                               checkOverlaps);
             
         }
-    }
+    }*/
+    
+    
     for (double pos_cible_x=-zone_xy+cote; pos_cible_x <zone_xy ; pos_cible_x+=2*cote){
         for (double pos_cible_y=-zone_xy+cote; pos_cible_y <zone_xy ; pos_cible_y+=2*cote){
             G4ThreeVector repeat = G4ThreeVector(pos_cible_x,pos_cible_y,0);

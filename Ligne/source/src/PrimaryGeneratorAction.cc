@@ -70,19 +70,15 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-    G4double coll_r=5/2.*mm;
-    G4double sigma=3*mm;
+    G4double sigma=1.80*mm;
     G4double mean=0;
     G4double x0;
     G4double y0;
-    do {
-        x0=G4RandGauss::shoot(mean,sigma);
-        y0=G4RandGauss::shoot(mean,sigma);
-    } while(sqrt(x0*x0+y0*y0)>=coll_r);
-        
+    x0=G4RandGauss::shoot(mean,sigma);
+    y0=G4RandGauss::shoot(mean,sigma);
     G4double z0 = -(2500-723)*mm;
-    G4double v0x=x0*0.001+G4RandGauss::shoot(0,x0*0.001)*mm;
-    G4double v0y=y0*0.001+G4RandGauss::shoot(0,y0*0.001)*mm;
+    G4double v0x=G4RandGauss::shoot(0,0.00115)*mm;
+    G4double v0y=G4RandGauss::shoot(0,0.00115)*mm;
     G4double v0z=1.;
     fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
     fParticleGun->SetParticleMomentumDirection(G4ThreeVector(v0x,v0y,v0z));
