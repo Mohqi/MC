@@ -77,6 +77,7 @@ class RunAction : public G4UserRunAction
     void SetBool(bool aBool) {fBool=aBool; }
     
 private:
+    TFile fFile;
     TTree fTree;
     int fEvents;
     double fEdep;

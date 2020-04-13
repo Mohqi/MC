@@ -33,10 +33,19 @@
 #include "G4VUserPrimaryGeneratorAction.hh"
 #include "G4ParticleGun.hh"
 #include "globals.hh"
+#include "Reader.hh"
+
+
+
+//Include root head file
+#include<string>
+#include "TFile.h"
+#include "TTree.h"
 
 class G4ParticleGun;
 class G4Event;
 class G4Box;
+class Reader;
 
 /// The primary generator action class with particle gun.
 ///
@@ -54,9 +63,13 @@ class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
   
     // method to access particle gun
     const G4ParticleGun* GetParticleGun() const { return fParticleGun; }
+    
+    // SETTER GETTER 
+
   
   private:
     G4ParticleGun*  fParticleGun; // pointer a to G4 gun class
+    Reader fReader;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

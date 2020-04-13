@@ -46,6 +46,8 @@
 #include "G4UIExecutive.hh"
 
 #include "Randomize.hh"
+#include "time.h"
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -57,6 +59,12 @@ int main(int argc,char** argv)
   if ( argc == 1 ) {
     ui = new G4UIExecutive(argc, argv);
   }
+    //choose the Random engine
+    CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine());
+    //set random seed with system time
+    G4long seed = time(NULL);
+    CLHEP::HepRandom::setTheSeed(seed);
+
 
   // Optionally: choose a different Random engine...
   // G4Random::setTheEngine(new CLHEP::MTwistEngine);

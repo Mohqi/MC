@@ -22,7 +22,7 @@ TTree* tr= (TTree*)f->Get("tree");  //ouvre le fichier root;
     int facteur_z = 100;
     int facteur_y = 100;//facteur pour passer des mm de root à une autre unité
     int FOVz = 7*facteur_z; // nombre de pixel en z
-    int FOVy = 8*facteur_y;  // nombre de pixel en x
+    int FOVy = 16*facteur_y;  // nombre de pixel en x
     // Taille de l'image = 7mm en z x 1mm en x
     int nb_cible = 20;
     

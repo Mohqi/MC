@@ -28,6 +28,7 @@
 /// \brief Implementation of the PrimaryGeneratorAction class
 
 #include "PrimaryGeneratorAction.hh"
+#include "Reader.hh"
 
 #include "G4LogicalVolumeStore.hh"
 #include "G4LogicalVolume.hh"
@@ -39,49 +40,53 @@
 #include "G4SystemOfUnits.hh"
 #include <cmath>
 
+
 #include "Randomize.hh"
+
+
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PrimaryGeneratorAction::PrimaryGeneratorAction()
 : G4VUserPrimaryGeneratorAction(),
-  fParticleGun(0)
+    fParticleGun(0),
+    fReader()
 {
-  G4int n_particle = 1;
-  fParticleGun  = new G4ParticleGun(n_particle);
-
-    
-  G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
-  G4String particleName;
-  G4ParticleDefinition* particle
+    fReader.SetBranch("../data/input.root","tree2");
+    G4int n_particle = 1;
+    fParticleGun  = new G4ParticleGun(n_particle);
+    G4ParticleTable* particleTable =  G4ParticleTable::GetParticleTable();
+    G4String particleName;
+    G4ParticleDefinition* particle
     = particleTable->FindParticle(particleName="proton");
-  fParticleGun->SetParticleDefinition(particle);
-  fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
- 
+    fParticleGun->SetParticleDefinition(particle);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PrimaryGeneratorAction::~PrimaryGeneratorAction()
 {
-  delete fParticleGun;
+    delete fParticleGun;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-    G4double cote= 4;
-    G4double x0=G4RandFlat::shoot(-1.,1.)*cote;
-    G4double y0=G4RandFlat::shoot(-1.,1.)*cote;
-    G4double z0 = -1*cm;
+    fReader.GetValue();
+    G4double x0=fReader.GetX()*mm;
+    G4double y0=fReader.GetY()*mm;
+    G4double z0=-3*cm;
+    
+    G4double vx0=fReader.GetVx()*mm;
+    G4double vy0=fReader.GetVy()*mm;
+    G4double vz0=fReader.GetVz()*mm;
+    G4double kinEnergy=fReader.GetEnergy()*MeV;
     fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
-    G4double RandoEnergy = G4RandGauss::shoot(25,0.1)*MeV;
-    fParticleGun->SetParticleEnergy(RandoEnergy*MeV);
-       
-
-  fParticleGun->GeneratePrimaryVertex(anEvent);
+    fParticleGun->SetParticleMomentumDirection(G4ThreeVector(vx0,vy0,vz0));
+    fParticleGun->SetParticleEnergy(kinEnergy);
+    fParticleGun->GeneratePrimaryVertex(anEvent);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

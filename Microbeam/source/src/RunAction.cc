@@ -48,6 +48,7 @@
 
 RunAction::RunAction()
 : G4UserRunAction(),
+    fFile{"Output.root", "recreate"},
     fTree{"tree", "tree"},
     fEvents{-1},
     fEdep{-1.},
@@ -64,6 +65,7 @@ RunAction::RunAction()
     fCible{0},
     fBool(true)
 {
+    
     fTree.Branch("Edep", &fEdep, "Edep /D");
     fTree.Branch("Z", &fDepth, "Depth /D");
     fTree.Branch("KinEnergy", &fKinEnergy, "KinEnergy /D");
@@ -87,7 +89,6 @@ RunAction::~RunAction()
 
 void RunAction::BeginOfRunAction(const G4Run*)
 {
-    ;
   // inform the runManager to save random number seed
   G4RunManager::GetRunManager()->SetRandomNumberStore(false);
 
@@ -145,9 +146,8 @@ void RunAction::EndOfRunAction(const G4Run* run)
      << G4endl
      << G4endl;
     
-    TFile outputFile{"Output.root", "recreate"};
     fTree.Write() ;
-    outputFile.Close() ;
+    fFile.Close() ;
 
     delete G4AnalysisManager::Instance();  
     
