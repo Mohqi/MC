@@ -361,6 +361,33 @@ src/PrimaryGeneratorAction.cc.s:
 	$(MAKE) -f CMakeFiles/microbeam.dir/build.make CMakeFiles/microbeam.dir/src/PrimaryGeneratorAction.cc.s
 .PHONY : src/PrimaryGeneratorAction.cc.s
 
+src/Reader.o: src/Reader.cc.o
+
+.PHONY : src/Reader.o
+
+# target to build an object file
+src/Reader.cc.o:
+	$(MAKE) -f CMakeFiles/microbeam.dir/build.make CMakeFiles/microbeam.dir/src/Reader.cc.o
+.PHONY : src/Reader.cc.o
+
+src/Reader.i: src/Reader.cc.i
+
+.PHONY : src/Reader.i
+
+# target to preprocess a source file
+src/Reader.cc.i:
+	$(MAKE) -f CMakeFiles/microbeam.dir/build.make CMakeFiles/microbeam.dir/src/Reader.cc.i
+.PHONY : src/Reader.cc.i
+
+src/Reader.s: src/Reader.cc.s
+
+.PHONY : src/Reader.s
+
+# target to generate assembly for a file
+src/Reader.cc.s:
+	$(MAKE) -f CMakeFiles/microbeam.dir/build.make CMakeFiles/microbeam.dir/src/Reader.cc.s
+.PHONY : src/Reader.cc.s
+
 src/RunAction.o: src/RunAction.cc.o
 
 .PHONY : src/RunAction.o
@@ -528,6 +555,9 @@ help:
 	@echo "... src/PrimaryGeneratorAction.o"
 	@echo "... src/PrimaryGeneratorAction.i"
 	@echo "... src/PrimaryGeneratorAction.s"
+	@echo "... src/Reader.o"
+	@echo "... src/Reader.i"
+	@echo "... src/Reader.s"
 	@echo "... src/RunAction.o"
 	@echo "... src/RunAction.i"
 	@echo "... src/RunAction.s"

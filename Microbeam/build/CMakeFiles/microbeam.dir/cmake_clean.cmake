@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/microbeam.dir/src/EventAction.cc.o"
   "CMakeFiles/microbeam.dir/src/PhysicsBIC.cc.o"
   "CMakeFiles/microbeam.dir/src/PrimaryGeneratorAction.cc.o"
+  "CMakeFiles/microbeam.dir/src/Reader.cc.o"
   "CMakeFiles/microbeam.dir/src/RunAction.cc.o"
   "CMakeFiles/microbeam.dir/src/StepMax.cc.o"
   "CMakeFiles/microbeam.dir/src/StepMaxMessenger.cc.o"

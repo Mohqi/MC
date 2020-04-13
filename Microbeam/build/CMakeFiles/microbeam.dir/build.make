@@ -152,9 +152,22 @@ CMakeFiles/microbeam.dir/src/PrimaryGeneratorAction.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/microbeam.dir/src/PrimaryGeneratorAction.cc.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/arichert/Documents/MC/Microbeam/source/src/PrimaryGeneratorAction.cc -o CMakeFiles/microbeam.dir/src/PrimaryGeneratorAction.cc.s
 
+CMakeFiles/microbeam.dir/src/Reader.cc.o: CMakeFiles/microbeam.dir/flags.make
+CMakeFiles/microbeam.dir/src/Reader.cc.o: /Users/arichert/Documents/MC/Microbeam/source/src/Reader.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/microbeam.dir/src/Reader.cc.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/microbeam.dir/src/Reader.cc.o -c /Users/arichert/Documents/MC/Microbeam/source/src/Reader.cc
+
+CMakeFiles/microbeam.dir/src/Reader.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/microbeam.dir/src/Reader.cc.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/arichert/Documents/MC/Microbeam/source/src/Reader.cc > CMakeFiles/microbeam.dir/src/Reader.cc.i
+
+CMakeFiles/microbeam.dir/src/Reader.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/microbeam.dir/src/Reader.cc.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/arichert/Documents/MC/Microbeam/source/src/Reader.cc -o CMakeFiles/microbeam.dir/src/Reader.cc.s
+
 CMakeFiles/microbeam.dir/src/RunAction.cc.o: CMakeFiles/microbeam.dir/flags.make
 CMakeFiles/microbeam.dir/src/RunAction.cc.o: /Users/arichert/Documents/MC/Microbeam/source/src/RunAction.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/microbeam.dir/src/RunAction.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/microbeam.dir/src/RunAction.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/microbeam.dir/src/RunAction.cc.o -c /Users/arichert/Documents/MC/Microbeam/source/src/RunAction.cc
 
 CMakeFiles/microbeam.dir/src/RunAction.cc.i: cmake_force
@@ -167,7 +180,7 @@ CMakeFiles/microbeam.dir/src/RunAction.cc.s: cmake_force
 
 CMakeFiles/microbeam.dir/src/StepMax.cc.o: CMakeFiles/microbeam.dir/flags.make
 CMakeFiles/microbeam.dir/src/StepMax.cc.o: /Users/arichert/Documents/MC/Microbeam/source/src/StepMax.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/microbeam.dir/src/StepMax.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/microbeam.dir/src/StepMax.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/microbeam.dir/src/StepMax.cc.o -c /Users/arichert/Documents/MC/Microbeam/source/src/StepMax.cc
 
 CMakeFiles/microbeam.dir/src/StepMax.cc.i: cmake_force
@@ -180,7 +193,7 @@ CMakeFiles/microbeam.dir/src/StepMax.cc.s: cmake_force
 
 CMakeFiles/microbeam.dir/src/StepMaxMessenger.cc.o: CMakeFiles/microbeam.dir/flags.make
 CMakeFiles/microbeam.dir/src/StepMaxMessenger.cc.o: /Users/arichert/Documents/MC/Microbeam/source/src/StepMaxMessenger.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/microbeam.dir/src/StepMaxMessenger.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/microbeam.dir/src/StepMaxMessenger.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/microbeam.dir/src/StepMaxMessenger.cc.o -c /Users/arichert/Documents/MC/Microbeam/source/src/StepMaxMessenger.cc
 
 CMakeFiles/microbeam.dir/src/StepMaxMessenger.cc.i: cmake_force
@@ -193,7 +206,7 @@ CMakeFiles/microbeam.dir/src/StepMaxMessenger.cc.s: cmake_force
 
 CMakeFiles/microbeam.dir/src/SteppingAction.cc.o: CMakeFiles/microbeam.dir/flags.make
 CMakeFiles/microbeam.dir/src/SteppingAction.cc.o: /Users/arichert/Documents/MC/Microbeam/source/src/SteppingAction.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/microbeam.dir/src/SteppingAction.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/microbeam.dir/src/SteppingAction.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/microbeam.dir/src/SteppingAction.cc.o -c /Users/arichert/Documents/MC/Microbeam/source/src/SteppingAction.cc
 
 CMakeFiles/microbeam.dir/src/SteppingAction.cc.i: cmake_force
@@ -206,7 +219,7 @@ CMakeFiles/microbeam.dir/src/SteppingAction.cc.s: cmake_force
 
 CMakeFiles/microbeam.dir/src/TrackingAction.cc.o: CMakeFiles/microbeam.dir/flags.make
 CMakeFiles/microbeam.dir/src/TrackingAction.cc.o: /Users/arichert/Documents/MC/Microbeam/source/src/TrackingAction.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/microbeam.dir/src/TrackingAction.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/microbeam.dir/src/TrackingAction.cc.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/microbeam.dir/src/TrackingAction.cc.o -c /Users/arichert/Documents/MC/Microbeam/source/src/TrackingAction.cc
 
 CMakeFiles/microbeam.dir/src/TrackingAction.cc.i: cmake_force
@@ -225,6 +238,7 @@ microbeam_OBJECTS = \
 "CMakeFiles/microbeam.dir/src/EventAction.cc.o" \
 "CMakeFiles/microbeam.dir/src/PhysicsBIC.cc.o" \
 "CMakeFiles/microbeam.dir/src/PrimaryGeneratorAction.cc.o" \
+"CMakeFiles/microbeam.dir/src/Reader.cc.o" \
 "CMakeFiles/microbeam.dir/src/RunAction.cc.o" \
 "CMakeFiles/microbeam.dir/src/StepMax.cc.o" \
 "CMakeFiles/microbeam.dir/src/StepMaxMessenger.cc.o" \
@@ -240,6 +254,7 @@ microbeam: CMakeFiles/microbeam.dir/src/DetectorConstruction.cc.o
 microbeam: CMakeFiles/microbeam.dir/src/EventAction.cc.o
 microbeam: CMakeFiles/microbeam.dir/src/PhysicsBIC.cc.o
 microbeam: CMakeFiles/microbeam.dir/src/PrimaryGeneratorAction.cc.o
+microbeam: CMakeFiles/microbeam.dir/src/Reader.cc.o
 microbeam: CMakeFiles/microbeam.dir/src/RunAction.cc.o
 microbeam: CMakeFiles/microbeam.dir/src/StepMax.cc.o
 microbeam: CMakeFiles/microbeam.dir/src/StepMaxMessenger.cc.o
@@ -286,7 +301,7 @@ microbeam: /Users/arichert/lib/geant4/geant4_build/BuildProducts/lib/libG4interc
 microbeam: /Users/arichert/lib/geant4/geant4_build/BuildProducts/lib/libG4global.dylib
 microbeam: /Users/arichert/lib/geant4/geant4_build/BuildProducts/lib/libG4clhep.dylib
 microbeam: CMakeFiles/microbeam.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable microbeam"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/arichert/Documents/MC/Microbeam/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable microbeam"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/microbeam.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
