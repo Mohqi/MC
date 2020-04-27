@@ -77,7 +77,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   //
   // World
   //
-    G4double d=500*um;
+    G4double d=50*um;
     G4double cote =(d/2.);
     G4double world_sizeXY = 5*cm;
     G4double world_sizeZ  = 3*cm;
@@ -237,7 +237,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     G4double Pyr_z=epaisseur[nb_epai-1]/2.;
     
     G4Trd* Pyr =
-        new G4Trd("Pyr",xy[1],xy[19],xy[1],xy[19],Pyr_z);
+        new G4Trd("Pyr",xy[1],0,xy[1],0,Pyr_z);
     
     G4LogicalVolume* logicPyr =
         new G4LogicalVolume(Pyr,
