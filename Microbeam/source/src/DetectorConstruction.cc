@@ -77,8 +77,12 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   //
   // World
   //
-    G4double d=50*um;
+    G4double d=250*um;
     G4double cote =(d/2.);
+    int nombre_pyr=19;
+    int compte_pyr=0;
+    
+    
     G4double world_sizeXY = 5*cm;
     G4double world_sizeZ  = 3*cm;
     G4double void_density = 0.000001*g/m3;
@@ -354,19 +358,21 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
             
         }
     }*/
-    
-    
-    for (double pos_cible_x=-zone_xy+cote; pos_cible_x <zone_xy ; pos_cible_x+=2*cote){
-        for (double pos_cible_y=-zone_xy+cote; pos_cible_y <zone_xy ; pos_cible_y+=2*cote){
+
+    for (double pos_cible_x=-(nombre_pyr/2)*d; pos_cible_x <=(nombre_pyr/2)*d; pos_cible_x+=d){
+        for (double pos_cible_y=-(nombre_pyr/2)*d; pos_cible_y <=(nombre_pyr/2)*d ; pos_cible_y+=d){
+            std::string a_str=std::to_string(compte_pyr);
+            std::string name_a = "env"+a_str;
             G4ThreeVector repeat = G4ThreeVector(pos_cible_x,pos_cible_y,0);
             new G4PVPlacement(0,
                               repeat,
                               logicEnv,
-                              "env",
+                              name_a,
                               logicZone,
                               false,
                               0,
                               checkOverlaps);
+            compte_pyr++;
             }
         }
     fScoringVolume = logicWaterbox;

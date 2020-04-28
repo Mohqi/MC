@@ -77,7 +77,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
     
     std::string volumeName =
         step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetName();
-    std::string str = "cible" ;
+    std::string str = "env" ;
     std::size_t found = volumeName.find(str);
     if(found!=std::string::npos) {
         int cibleID;

@@ -59,5 +59,20 @@
 /vis/viewer/set/autoRefresh true
 /vis/viewer/refresh
 /vis/verbose warnings
+/run/beamOn 10
+/vis/scene/notifyHandlers scene-0
+/vis/viewer/set/picking false
+/vis/viewer/refresh
+/vis/set/touchable World 0 Diff1 0
+/run/beamOn 100
+/vis/set/touchable World 0 Diff1 0
+/vis/set/touchable World 0 Diff1 0
+/vis/set/touchable World 0 Diff1 0
+/vis/set/touchable World 0 Diff1 0
+/vis/set/touchable World 0 Diff1 0
+/vis/set/touchable World 0 Diff1 0
+/vis/set/touchable World 0 Diff1 0
+/vis/set/touchable World 0 Diff1 0
+/vis/set/touchable World 0 Diff1 0
 /vis/viewer/set/picking false
 /vis/viewer/refresh

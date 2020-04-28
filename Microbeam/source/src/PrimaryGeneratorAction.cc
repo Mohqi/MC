@@ -74,11 +74,16 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-    fReader.GetValue();
-    G4double x0=fReader.GetX()*mm;
-    G4double y0=fReader.GetY()*mm;
-    G4double z0=-3*cm;
+    G4double cote=250*um;
+    int nb_pyr=19;
+    G4double x0,y0;
+    do{ fReader.GetValue();
+        x0=fReader.GetX()*mm;
+        y0=fReader.GetY()*mm;
+       }
+    while( (x0>(nb_pyr/2.)*cote || x0<(-nb_pyr/2.)*cote) || (y0>(nb_pyr/2.)*cote || y0<(-nb_pyr/2.)*cote) );
     
+    G4double z0=-3*cm;
     G4double vx0=fReader.GetVx()*mm;
     G4double vy0=fReader.GetVy()*mm;
     G4double vz0=fReader.GetVz()*mm;
