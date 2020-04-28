@@ -361,6 +361,33 @@ src/PrimaryGeneratorAction.cc.s:
 	$(MAKE) -f CMakeFiles/microbeam.dir/build.make CMakeFiles/microbeam.dir/src/PrimaryGeneratorAction.cc.s
 .PHONY : src/PrimaryGeneratorAction.cc.s
 
+src/Reader.o: src/Reader.cc.o
+
+.PHONY : src/Reader.o
+
+# target to build an object file
+src/Reader.cc.o:
+	$(MAKE) -f CMakeFiles/microbeam.dir/build.make CMakeFiles/microbeam.dir/src/Reader.cc.o
+.PHONY : src/Reader.cc.o
+
+src/Reader.i: src/Reader.cc.i
+
+.PHONY : src/Reader.i
+
+# target to preprocess a source file
+src/Reader.cc.i:
+	$(MAKE) -f CMakeFiles/microbeam.dir/build.make CMakeFiles/microbeam.dir/src/Reader.cc.i
+.PHONY : src/Reader.cc.i
+
+src/Reader.s: src/Reader.cc.s
+
+.PHONY : src/Reader.s
+
+# target to generate assembly for a file
+src/Reader.cc.s:
+	$(MAKE) -f CMakeFiles/microbeam.dir/build.make CMakeFiles/microbeam.dir/src/Reader.cc.s
+.PHONY : src/Reader.cc.s
+
 src/RunAction.o: src/RunAction.cc.o
 
 .PHONY : src/RunAction.o
@@ -469,6 +496,33 @@ src/SteppingAction.cc.s:
 	$(MAKE) -f CMakeFiles/microbeam.dir/build.make CMakeFiles/microbeam.dir/src/SteppingAction.cc.s
 .PHONY : src/SteppingAction.cc.s
 
+src/TrackingAction.o: src/TrackingAction.cc.o
+
+.PHONY : src/TrackingAction.o
+
+# target to build an object file
+src/TrackingAction.cc.o:
+	$(MAKE) -f CMakeFiles/microbeam.dir/build.make CMakeFiles/microbeam.dir/src/TrackingAction.cc.o
+.PHONY : src/TrackingAction.cc.o
+
+src/TrackingAction.i: src/TrackingAction.cc.i
+
+.PHONY : src/TrackingAction.i
+
+# target to preprocess a source file
+src/TrackingAction.cc.i:
+	$(MAKE) -f CMakeFiles/microbeam.dir/build.make CMakeFiles/microbeam.dir/src/TrackingAction.cc.i
+.PHONY : src/TrackingAction.cc.i
+
+src/TrackingAction.s: src/TrackingAction.cc.s
+
+.PHONY : src/TrackingAction.s
+
+# target to generate assembly for a file
+src/TrackingAction.cc.s:
+	$(MAKE) -f CMakeFiles/microbeam.dir/build.make CMakeFiles/microbeam.dir/src/TrackingAction.cc.s
+.PHONY : src/TrackingAction.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -501,6 +555,9 @@ help:
 	@echo "... src/PrimaryGeneratorAction.o"
 	@echo "... src/PrimaryGeneratorAction.i"
 	@echo "... src/PrimaryGeneratorAction.s"
+	@echo "... src/Reader.o"
+	@echo "... src/Reader.i"
+	@echo "... src/Reader.s"
 	@echo "... src/RunAction.o"
 	@echo "... src/RunAction.i"
 	@echo "... src/RunAction.s"
@@ -513,6 +570,9 @@ help:
 	@echo "... src/SteppingAction.o"
 	@echo "... src/SteppingAction.i"
 	@echo "... src/SteppingAction.s"
+	@echo "... src/TrackingAction.o"
+	@echo "... src/TrackingAction.i"
+	@echo "... src/TrackingAction.s"
 .PHONY : help
 
 

@@ -43,6 +43,7 @@
 #include "G4PVPlacement.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4UserLimits.hh"     //maximum step size
+#include "G4PVReplica.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -76,7 +77,12 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   //
   // World
   //
-    // G4double rayon = 3*mm;
+    G4double d=250*um;
+    G4double cote =(d/2.);
+    int nombre_pyr=19;
+    int compte_pyr=0;
+    
+    
     G4double world_sizeXY = 5*cm;
     G4double world_sizeZ  = 3*cm;
     G4double void_density = 0.000001*g/m3;
@@ -136,11 +142,10 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                   checkOverlaps);
     
     
-    // Embout FLASH
+    // Embout FLASH carre
     
     //load data
-    
-    /*
+
     std::ifstream data("../source/data/data.txt");
     double a=0;
     double b=0;
@@ -158,6 +163,34 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     coef[nb_epai+1]=0;
     
     //
+    // zone irradiation Champ 6mm rayon gaussien
+    //
+    G4double zone_xy =8*mm;
+    G4double zone_z = 3*mm;
+    G4ThreeVector zone_pos=G4ThreeVector(0,0,-3*mm);
+    
+    G4Box* zone =
+        new G4Box("zone",
+                  zone_xy,
+                  zone_xy,
+                  zone_z);
+    
+    G4LogicalVolume* logicZone =
+        new G4LogicalVolume(zone,
+                            G4_Void,
+                            "zone") ;
+    G4VPhysicalVolume* physicZone =
+    new G4PVPlacement(0,
+                      zone_pos,
+                      logicZone,
+                      "zone",
+                      logicWorld,
+                      false,
+                      0,
+                      checkOverlaps);
+    
+    
+    //
     // enveloppe cible
     //
     
@@ -165,74 +198,120 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
      G4Material* env_mat = nist->FindOrBuildMaterial("G4_Void");
      G4ThreeVector env_pos = G4ThreeVector(0,0,pos_env_z);
      
-     G4double env_r_min = 0. ;
-     G4double env_r_max = rayon ;
-     G4double env_z = 3*mm;
+     G4double box_xy = cote ;
+     G4double box_z = 3*mm;
      
-     G4Tubs* env=
-         new G4Tubs("env",
-                   env_r_min,
-                   env_r_max,
-                   env_z,
-                    0.,
-                    2*M_PI);
+     G4Box* env=
+         new G4Box("env",
+                   box_xy,
+                   box_xy,
+                   box_z);
      
      G4LogicalVolume* logicEnv=
          new G4LogicalVolume(env,
                              env_mat,
                              "env");
      
-    new G4PVPlacement(0,
-                   env_pos,
-                   logicEnv,
-                   "env",
-                   logicWorld,
-                   false,
-                   0,
-                   checkOverlaps);
     //
     // cible
     //
     
     double tot=0;
-    std::vector<double> aire(20,0);
-    std::vector<double> r(21,0);
-    for (int i=0; i<20;i++)
+    for (int i=0; i<20;i++) {
         tot+=coef[i];
-    aire[0]=(rayon*rayon*M_PI)/tot;
-    r[20]=0;
+    }
+    std::vector<double> aire(nb_epai,0);
+    std::vector<double> xy(nb_epai+1,0);
+    aire[0]=(cote*cote)/tot;
+    xy[20]=0;
+    G4cout << aire[0] << G4endl;
+    G4double cible_xy;
+    G4double pos_x=0;
+    G4double pos_y=0;
+    G4double pos_z=epaisseur[0]/2.;
+    G4ThreeVector pyr_pos=G4ThreeVector(pos_x,pos_y,pos_z);
+    G4Material* Pyr_mat = nist->FindOrBuildMaterial("G4_Al");
+    
+    for (int i=19; i>=0 ; i--)  {
+        aire[i]=aire[0]*coef[i];
+        xy[i]=sqrt(aire[i]+xy[i+1]*xy[i+1]);
+        cible_xy= xy[i];
+        
+    }
+    G4double Pyr_z=epaisseur[nb_epai-1]/2.;
+    
+    G4Trd* Pyr =
+        new G4Trd("Pyr",xy[1],0,xy[1],0,Pyr_z);
+    
+    G4LogicalVolume* logicPyr =
+        new G4LogicalVolume(Pyr,
+                            Pyr_mat,
+                            "Pyr");
+    new G4PVPlacement(0,
+                     pyr_pos,
+                     logicPyr,
+                     "Pyr",
+                     logicEnv,
+                     false,
+                     0,
+                     checkOverlaps);
+    
+    G4double socle_z = pos_z-Pyr_z-epaisseur[0]/2.;
+    G4ThreeVector socle_pos = G4ThreeVector(0,0,socle_z);
+    
+    G4Box* Socle=
+        new G4Box("socle",
+                  xy[0],
+                  xy[0],
+                  epaisseur[0]/2.);
+    
+    G4LogicalVolume* logicSocle =
+        new G4LogicalVolume(Socle,
+                            Pyr_mat,
+                            "Socle");
+    
+    new G4PVPlacement(0,
+                      socle_pos,
+                      logicSocle,
+                      "Socle",
+                      logicEnv,
+                      false,
+                      0,
+                      checkOverlaps);
+    
+    
+   /* for (int i=0; i<20;i++) {
+        tot+=coef[i];
+    }
+    aire[0]=(cote*cote)/tot;
+    xy[20]=0;
 
-    G4double cible_r_min;
-    G4double cible_r_max;
+    G4double cible_xy;
     G4double cible_z;
     G4double pos_x=0;
     G4double pos_y=0;
     G4double pos_z;
-    std::vector<G4Tubs*> cible(20);
+    std::vector<G4Box*> cible(20);
     std::vector<G4LogicalVolume*> logicCible(20);
     std::string cible_string= "cible";
     G4Material* cible_mat = nist->FindOrBuildMaterial("G4_Al");
     G4ThreeVector cible_pos;
-    
-    for (int i=19; i>0 ; i--) {
+    for (int i=19; i>=0 ; i--) {
+        if(i!=0) {
         aire[i]=aire[0]*coef[i];
-        r[i]=sqrt((aire[i]/M_PI)+r[i+1]*r[i+1]);
+        xy[i]=sqrt(aire[i]+xy[i+1]*xy[i+1]);
         std::string i_string = std::to_string(i);
         std::string name = cible_string+i_string;
-        cible_r_max = r[i];
-        cible_r_min = r[i+1];
-        cible_z = (epaisseur[i]/2.)*mm;
-        pos_z = -env_z+cible_z;
+        cible_xy = xy[i];
+        cible_z = (epaisseur[i]-epaisseur[i-1])/2.;
+        pos_z = (-box_z/2.+epaisseur[i]-cible_z);
         cible_pos=G4ThreeVector(pos_x,pos_y,pos_z);
-        G4cout << r[i] << G4endl;
         
         cible[i]=
-             new G4Tubs(name,
-                        cible_r_min,
-                        cible_r_max,
-                        cible_z,
-                        0.,
-                        2*M_PI);
+             new G4Box(name,
+                       cible_xy,
+                       cible_xy,
+                       cible_z);
          
          logicCible[i] =
              new G4LogicalVolume(cible[i],
@@ -247,9 +326,55 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                           false,
                           0,
                           checkOverlaps);
-    }
-     */
-    
+        }
+        else if(i==0) {
+            xy[i]=sqrt(aire[i]+xy[i+1]*xy[i+1]);
+            std::string i_string = std::to_string(i);
+            std::string name = cible_string+i_string;
+            cible_xy = xy[i];
+            cible_z = (epaisseur[i])/2.;
+            pos_z = (-box_z/2.+epaisseur[i]-cible_z);
+            cible_pos=G4ThreeVector(pos_x,pos_y,pos_z);
+            
+            cible[i]=
+                 new G4Box(name,
+                           cible_xy,
+                           cible_xy,
+                           cible_z);
+             
+             logicCible[i] =
+                 new G4LogicalVolume(cible[i],
+                                     cible_mat,
+                                     name);
+             
+            new G4PVPlacement(0,
+                              cible_pos,
+                              logicCible[i],
+                              name,
+                              logicEnv,
+                              false,
+                              0,
+                              checkOverlaps);
+            
+        }
+    }*/
+
+    for (double pos_cible_x=-(nombre_pyr/2)*d; pos_cible_x <=(nombre_pyr/2)*d; pos_cible_x+=d){
+        for (double pos_cible_y=-(nombre_pyr/2)*d; pos_cible_y <=(nombre_pyr/2)*d ; pos_cible_y+=d){
+            std::string a_str=std::to_string(compte_pyr);
+            std::string name_a = "env"+a_str;
+            G4ThreeVector repeat = G4ThreeVector(pos_cible_x,pos_cible_y,0);
+            new G4PVPlacement(0,
+                              repeat,
+                              logicEnv,
+                              name_a,
+                              logicZone,
+                              false,
+                              0,
+                              checkOverlaps);
+            compte_pyr++;
+            }
+        }
     fScoringVolume = logicWaterbox;
   //
   //always return the physical World

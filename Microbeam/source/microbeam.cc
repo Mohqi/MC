@@ -30,6 +30,7 @@
 #include "DetectorConstruction.hh"
 #include "ActionInitialization.hh"
 #include "PhysicsBIC.hh"
+#include "TrackingAction.hh"
 
 #ifdef G4MULTITHREADED
 #include "G4MTRunManager.hh"
@@ -45,6 +46,8 @@
 #include "G4UIExecutive.hh"
 
 #include "Randomize.hh"
+#include "time.h"
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -56,6 +59,12 @@ int main(int argc,char** argv)
   if ( argc == 1 ) {
     ui = new G4UIExecutive(argc, argv);
   }
+    //choose the Random engine
+    CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine());
+    //set random seed with system time
+    G4long seed = time(NULL);
+    CLHEP::HepRandom::setTheSeed(seed);
+
 
   // Optionally: choose a different Random engine...
   // G4Random::setTheEngine(new CLHEP::MTwistEngine);
@@ -73,14 +82,14 @@ int main(int argc,char** argv)
   // Detector construction
   runManager->SetUserInitialization(new DetectorConstruction());
 
-  // Physics list
+    // Physics list
     PhysicsBIC*            phys = new PhysicsBIC();
     runManager->SetUserInitialization(phys);
 
     
-  // User action initialization
+    // User action initialization
   runManager->SetUserInitialization(new ActionInitialization());
-  
+    
 
   // Initialize visualization
   //

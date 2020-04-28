@@ -70,11 +70,14 @@ class RunAction : public G4UserRunAction
     void SetTrackID    ( int    aID  ) { fTrackID = aID    ;  }
     void SetParentID    ( int    aID  ) { fParentID = aID     ;  }
     void SetSpectrum    ( double   aSpectrum  ) { fSpectrum = aSpectrum     ;  }
-    
+    void SetCible (int aCible) {fCible = aCible;    }
     TTree& GetTree(){ return fTree; }
     int& GetEvents(){ return fEvents; }
+    bool GetBool() {return fBool;}
+    void SetBool(bool aBool) {fBool=aBool; }
     
 private:
+    TFile fFile;
     TTree fTree;
     int fEvents;
     double fEdep;
@@ -88,6 +91,8 @@ private:
     std::string fPartName;
     int fTrackID;
     int fParentID;
+    int fCible;
+    bool fBool;
 };
 
 #endif

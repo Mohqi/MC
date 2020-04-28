@@ -1,4 +1,5 @@
 /run/verbose 2
+/run/numberOfThreads 2
 /run/initialize
 /control/execute vis.mac
 /vis/open OGL 600x600-0+0
@@ -58,3 +59,7 @@
 /vis/viewer/set/autoRefresh true
 /vis/viewer/refresh
 /vis/verbose warnings
+/vis/viewer/set/picking false
+/vis/viewer/refresh
+/run/beamOn 11000
+/vis/scene/notifyHandlers scene-0

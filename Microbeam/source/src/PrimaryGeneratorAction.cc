@@ -28,6 +28,7 @@
 /// \brief Implementation of the PrimaryGeneratorAction class
 
 #include "PrimaryGeneratorAction.hh"
+#include "Reader.hh"
 
 #include "G4LogicalVolumeStore.hh"
 #include "G4LogicalVolume.hh"
@@ -39,76 +40,58 @@
 #include "G4SystemOfUnits.hh"
 #include <cmath>
 
+
 #include "Randomize.hh"
+
+
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PrimaryGeneratorAction::PrimaryGeneratorAction()
 : G4VUserPrimaryGeneratorAction(),
-  fParticleGun(0)
+    fParticleGun(0),
+    fReader()
 {
-  G4int n_particle = 1;
-  fParticleGun  = new G4ParticleGun(n_particle);
-
-    
-  G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
-  G4String particleName;
-  G4ParticleDefinition* particle
+    fReader.SetBranch("../data/input.root","tree2");
+    G4int n_particle = 1;
+    fParticleGun  = new G4ParticleGun(n_particle);
+    G4ParticleTable* particleTable =  G4ParticleTable::GetParticleTable();
+    G4String particleName;
+    G4ParticleDefinition* particle
     = particleTable->FindParticle(particleName="proton");
-  fParticleGun->SetParticleDefinition(particle);
-  fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
- 
+    fParticleGun->SetParticleDefinition(particle);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PrimaryGeneratorAction::~PrimaryGeneratorAction()
 {
-  delete fParticleGun;
+    delete fParticleGun;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-    double rand = G4RandFlat::shoot(0.,1.);
-    /*double rand1 = CLHEP::RandFlat::shoot(-1.,1.);
-    double rand2 = CLHEP::RandFlat::shoot(-1.,1.);
-    G4double rayon= 65*um;*/
+    G4double cote=250*um;
+    int nb_pyr=19;
     G4double x0,y0;
-    if (rand<(0.09)) {
-        x0 = 0+G4RandGauss::shoot(0.,50)*um;
-        y0 = -5+G4RandGauss::shoot(0.,50)*um;
-    }
-    else if (rand<(0.22)) { //2cm vers le haut
-        x0 = 0+G4RandGauss::shoot(0.,65)*um;
-        y0 = -3+G4RandGauss::shoot(0.,65)*um;
-    }
-    else if (rand<(0.37)){
-        x0 = 0+G4RandGauss::shoot(0.,80)*um;
-        y0 = -1+G4RandGauss::shoot(0.,80)*um;
-    }
-    else if (rand<(0.552)){
-        x0 = 0+G4RandGauss::shoot(0.,95)*um;
-        y0 = 1+G4RandGauss::shoot(0.,95)*um;
-    }
-    else if(rand<(0.762)) {
-        x0 = 0+G4RandGauss::shoot(0.,110)*um;
-        y0 = 3+G4RandGauss::shoot(0.,110)*um;
-    }
-    else {
-        x0 = 0+G4RandGauss::shoot(0.,125)*um;
-        y0 = 5+G4RandGauss::shoot(0.,125)*um;
-    }
+    do{ fReader.GetValue();
+        x0=fReader.GetX()*mm;
+        y0=fReader.GetY()*mm;
+       }
+    while( (x0>(nb_pyr/2.)*cote || x0<(-nb_pyr/2.)*cote) || (y0>(nb_pyr/2.)*cote || y0<(-nb_pyr/2.)*cote) );
     
-    G4double z0 = -1*cm;
+    G4double z0=-3*cm;
+    G4double vx0=fReader.GetVx()*mm;
+    G4double vy0=fReader.GetVy()*mm;
+    G4double vz0=fReader.GetVz()*mm;
+    G4double kinEnergy=fReader.GetEnergy()*MeV;
     fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
-    G4double RandoEnergy = 25;
-    fParticleGun->SetParticleEnergy(RandoEnergy*MeV);
-       
-
-  fParticleGun->GeneratePrimaryVertex(anEvent);
+    fParticleGun->SetParticleMomentumDirection(G4ThreeVector(vx0,vy0,vz0));
+    fParticleGun->SetParticleEnergy(kinEnergy);
+    fParticleGun->GeneratePrimaryVertex(anEvent);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
