@@ -74,8 +74,8 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-    G4double cote=250*um;
-    int nb_pyr=19;
+    G4double cote=100*um;
+    int nb_pyr=11;
     G4double x0,y0;
     do{ fReader.GetValue();
         x0=fReader.GetX()*mm;

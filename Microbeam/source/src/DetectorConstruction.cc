@@ -77,10 +77,10 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   //
   // World
   //
-    G4double d=250*um;
+    G4double d=100*um;
     G4double cote =(d/2.);
-    int nombre_pyr=19;
-    int compte_pyr=0;
+    int nombre_pyr=11;
+    int compte_pyr=1;
     
     
     G4double world_sizeXY = 5*cm;
