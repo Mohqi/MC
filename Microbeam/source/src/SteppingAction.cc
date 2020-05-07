@@ -96,7 +96,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
         G4StepPoint* prePoint = step->GetPreStepPoint();
         G4StepPoint* postPoint = step->GetPostStepPoint();
         G4double Edep = prePoint->GetKineticEnergy() - postPoint->GetKineticEnergy();
-        G4double TotalEdep = step->GetTotalEnergyDeposit();
+        G4double TotalEdep = (step->GetTotalEnergyDeposit()/(CLHEP::MeV));
         G4double kinEnergy = prePoint->GetKineticEnergy();
         G4double deltaLength = (postPoint->GetPosition().getZ() - prePoint->GetPosition().getZ());
         G4double depth = (prePoint->GetPosition().getZ() + CLHEP::RandFlat::shoot(deltaLength)) ;
